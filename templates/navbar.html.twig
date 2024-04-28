@@ -1,17 +1,91 @@
-<header class="d-flex justify-content-center">
+<nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="#"><img src="{{ asset('/assets/img/logo.png') }}" alt="" width="90" ></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="color:white;">
+                    <span class="navbar-toggler-icon" style="color: white;"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-outline-secondary " type="button">Login</button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+<style>
+.navbar{
+    background-color:#1a1e21;
+    font-family: Candara;
+    font-size:larger;
+}
 
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4 " id="mainNav">
+.nav-link{
+    color:#FFFFFF;
+    transition: all .5s;
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <img class="my_logo" src="{{ asset('/assets/img/logo.png') }}" alt="">
-            <ul class="navbar-nav mx-auto ">
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Home</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">About</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Products</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Store</a></li>
-            </ul>
-        </div>
-    </nav>
-</header>
+}
+.nav-link:hover{
+    transform: scale(1.2);
+    color:#3d9970;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2%;
+    width: 0;
+    height: 2%;
+    background-color: transparent;
+    transition: width 0.5s ease;
+}
+.nav-link:hover::after,.nav-link:focus::after {
+    background-color: #3d9970;
+    width: 100%;
+}
+
+
+.nav-item{
+    margin-right:5%;
+    margin-left:5%;
+}
+
+.nav{
+    padding:1%;
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+.btn{
+    height:80% !important;
+    margin-left:1%!important;
+    color: #6f7071 ;
+}
+
+.btn-outline-secondary:hover{
+    background-color: transparent!important;
+}
+
+.btn-outline-secondary{
+    border:none;
+    border-radius: 13px;
+    font-size: 100% !important;
+}
+
+.navbar-toggler {
+    color: #FFFFFF!important;
+}
+#carouselExampleIndicators{
+    width:100%!important;
+    margin-top: 7%;
+    margin-left: 10%;
+}
+</style>
