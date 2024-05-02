@@ -1,0 +1,11 @@
+body{
+    background-color: #202c2b;
+    padding: 20px;
+
+}
+h1{
+    color:white ;
+}
+.border-dashed {
+    border: 1px dashed white; /* Adjust thickness and color as needed */
+}
