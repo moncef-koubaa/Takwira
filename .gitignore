@@ -24,3 +24,6 @@
 /public/node_modules/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+/public/package-lock.json
+/public/package.json
