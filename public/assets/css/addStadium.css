@@ -1,0 +1,71 @@
+:root {
+    --akhdar-ghamak: #202c2b;
+    --akhdhar-fetah: #2a8735;
+    --akhdhar-azrak: #101e1e;
+}
+
+body {
+    background-color: var(--akhdhar-azrak) !important;
+    background-image: url("https://us.images.westend61.de/0001405679pw/close-up-of-soccer-field-EYF08953.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    color: var(--akhdhar-fetah);
+}
+
+.input {
+    background-color: rgba(255, 255, 255, 0.79);
+}
+
+.no-img {
+    border-style: dashed;
+    border-width: medium;
+    height: 300px;
+}
+
+a {
+    color: var(--akhdhar-fetah);
+}
+
+.btn, .btn:hover {
+    width: 40%;
+    background-color: var(--akhdhar-fetah);
+    color: white;
+}
+
+span {
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--akhdhar-fetah);
+}
+
+
+.img-prv {
+    background-size: cover;
+    margin: 2%;
+    border-style: solid;
+    border-width: medium;
+    border-color: var(--akhdhar-fetah);
+}
+
+
+@media screen and (min-width: 992px)  {
+    .img-ctn {
+        height: 300px;
+        display: grid !important;
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media screen and (max-width: 992px)  {
+    .img-ctn {
+        height: 1600px;
+        display: grid !important;
+        grid-template-rows: 25% 25% 25% 25%;
+        grid-template-columns: 100%;
+    }
+}

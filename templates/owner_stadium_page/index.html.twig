@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resizable Input Label</title>
+    <style>
+        .input-container {
+            position: relative;
+            width: 300px; /* Set the initial width */
+        }
+
+        .input-label {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            width: 100%;
+            transition: all 0.3s ease; /* Add smooth transition */
+        }
+
+        .input-label.shrink {
+            width: auto; /* Shrink the width */
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.3s ease; /* Add smooth transition */
+        }
+
+        .input-field:focus {
+
+        }
+    </style>
+</head>
+<body>
+<div class="input-container">
+    <label for="input-field" class="input-label">Input Label</label>
+    <input type="text" id="input-field" class="input-field">
+</div>
+</body>
+</html>

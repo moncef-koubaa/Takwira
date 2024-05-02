@@ -1,0 +1,64 @@
+:root {
+    --akhdar-ghamak: #202c2b;
+    --akhdhar-fetah: #2a8735;
+    --akhdhar-azrak: #101e1e;
+}
+
+body {
+    background-color: var(--akhdhar-azrak) !important;
+    background-image: url("https://us.images.westend61.de/0001405679pw/close-up-of-soccer-field-EYF08953.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.week {
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 0.5%;
+}
+
+.reservation {
+    background-color: rgba(255, 255, 255, 0.79);
+    margin-bottom: 4%;
+    padding: 4%;
+}
+
+h2 {
+    background-color: var(--akhdhar-fetah);
+    color: white;
+}
+
+.day>h4 {
+    background-color: var(--akhdhar-fetah);
+    color: white;
+    line-height: 160%;
+}
+
+.reservation>h4 {
+    color: white;
+    background-color: var(--akhdar-ghamak);
+}
+
+.calendar {
+    margin: 2%;
+}
+
+h4.today {
+    background-color: white;
+    color: var(--akhdhar-fetah);
+}
+
+.btn {
+    background-color: var(--akhdhar-fetah);
+    border-style: none;
+}
+
+h5>span {
+    font-size: medium;
+}
+
+.reservation>p {
+    font-size: medium;
+}
