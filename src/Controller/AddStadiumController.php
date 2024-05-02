@@ -11,8 +11,6 @@ class AddStadiumController extends AbstractController
     #[Route('/addStadium', name: 'app_add_stadium')]
     public function index(): Response
     {
-        return $this->render('add_stadium/index.html.twig', [
-
-        ]);
+        return $this->render('add_stadium/index.html.twig', []);
     }
 }
