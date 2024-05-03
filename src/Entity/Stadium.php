@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StadiumRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,24 @@ class Stadium
 
     #[ORM\Column]
     private ?bool $hasPark = null;
+
+    #[ORM\ManyToOne(inversedBy: 'stadiums')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
+    #[ORM\Column]
+    private ?int $ownerId = null;
+
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'stadium', orphanRemoval: true)]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +170,60 @@ class Stadium
     public function setHasPark(bool $hasPark): static
     {
         $this->hasPark = $hasPark;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getOwnerId(): ?int
+    {
+        return $this->ownerId;
+    }
+
+    public function setOwnerId(int $ownerId): static
+    {
+        $this->ownerId = $ownerId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setStadium($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getStadium() === $this) {
+                $reservation->setStadium(null);
+            }
+        }
 
         return $this;
     }

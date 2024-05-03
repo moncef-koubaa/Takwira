@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,27 @@ class User
 
     #[ORM\Column]
     private ?bool $isOwner = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    /**
+     * @var Collection<int, Stadium>
+     */
+    #[ORM\OneToMany(targetEntity: Stadium::class, mappedBy: 'owner', orphanRemoval: true)]
+    private Collection $stadiums;
+
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->stadiums = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +113,78 @@ class User
     public function setOwner(bool $isOwner): static
     {
         $this->isOwner = $isOwner;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stadium>
+     */
+    public function getStadiums(): Collection
+    {
+        return $this->stadiums;
+    }
+
+    public function addStadium(Stadium $stadium): static
+    {
+        if (!$this->stadiums->contains($stadium)) {
+            $this->stadiums->add($stadium);
+            $stadium->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStadium(Stadium $stadium): static
+    {
+        if ($this->stadiums->removeElement($stadium)) {
+            // set the owning side to null (unless already changed)
+            if ($stadium->getOwner() === $this) {
+                $stadium->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
 
         return $this;
     }

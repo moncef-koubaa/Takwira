@@ -38,6 +38,21 @@
         </div>
     </div>
 
+    <script>
+        const reservations = [];
+        {% for reservation in reservations %}
+            reservations.push({
+                date: new Date('{{ reservation.date|date("M d, Y") }}'),
+                startTime: '{{ reservation.startTime|date("H:i") }}',
+                endTime: '{{ reservation.endTime|date("H:i") }}',
+                client: {
+                    name: '{{ reservation.user.firstName}} {{ reservation.user.lastName }}',
+                    phoneNumber: '{{ reservation.user.phoneNumber }}',
+                    email: '{{ reservation.user.email }}'
+                }
+            });
+        {% endfor %}
+    </script>
     <script src="{{ asset('assets/js/monitorStadium.js') }}"></script>
 </body>
 </html>
