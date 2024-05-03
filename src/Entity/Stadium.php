@@ -28,7 +28,7 @@ class Stadium
     #[ORM\Column]
     private ?float $pricePerHour = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $city = null;
 
     #[ORM\Column]
@@ -43,12 +43,12 @@ class Stadium
     #[ORM\Column]
     private ?bool $hasPark = null;
 
+    #[ORM\Column]
+    private ?int $ownerId = null;
+
     #[ORM\ManyToOne(inversedBy: 'stadiums')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
-
-    #[ORM\Column]
-    private ?int $ownerId = null;
 
     /**
      * @var Collection<int, Reservation>
@@ -174,18 +174,6 @@ class Stadium
         return $this;
     }
 
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): static
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
     public function getOwnerId(): ?int
     {
         return $this->ownerId;
@@ -194,6 +182,18 @@ class Stadium
     public function setOwnerId(int $ownerId): static
     {
         $this->ownerId = $ownerId;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

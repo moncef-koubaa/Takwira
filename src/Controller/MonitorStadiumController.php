@@ -15,7 +15,7 @@ class MonitorStadiumController extends AbstractController
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {
         dump($request);
-        $stadiumId = 44;
+        $stadiumId = 1;
         $stadium = $doctrine->getRepository(Stadium::class)->find($stadiumId);
         return $this->render('monitor_stadium/index.html.twig', [
             'reservations' => $stadium->getReservations()

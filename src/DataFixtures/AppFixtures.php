@@ -57,8 +57,8 @@ class AppFixtures extends Fixture
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
             $user->setPhoneNumber($faker->numberBetween(0, 99999999));
-            $user->setOwner($faker->boolean);
-            if ($user->isOwner()) {
+            if ($faker->boolean) {
+                $user->setRoles(['ROLE_OWNER']);
                 for ($j = 0; $j < 5; $j++) {
                     $stadium = $this->makeFakeStadium();
                     $stadium->setOwner($user);
