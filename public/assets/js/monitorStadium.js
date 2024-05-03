@@ -3,38 +3,17 @@ const nextWeekButton = document.querySelector('.right');
 const prevWeekButton = document.querySelector('.left');
 const todayButton = document.querySelector('.today-btn');
 
-const res1 = {
-    date: new Date('Apr 29, 2024'),
-    startTime: '08:00',
-    endTime: '10:00',
-    client: {
-        name: 'Amir Mallek',
-        phoneNumber: '50 814 333',
-        email: 'mallekamir123@gmail.com'
-    }
-};
-
-const res2 = {
-    date: new Date('May 06 , 2024'),
-    startTime: '22:00',
-    endTime: '00:00',
-    client: {
-        name: 'Mohamed Gumiha',
-        phoneNumber: '97 288 008',
-        email: 'mohamedkmiha8@gmail.com'
-    }
-};
+const today = new Date();
+today.setHours(0);
+today.setMinutes(0);
+today.setSeconds(0);
 
 const thisWeek = {
-    weekStart: new Date('Apr 29, 2024'),
-    weekEnd: new Date('May 05, 2024')
+    weekStart: nextDay(today, -today.getDay() + 1),
+    weekEnd: nextDay(today, 7 - today.getDay())
 }
 
-const today = new Date();
-
 let currentWeek = thisWeek;
-
-const reservations = [res1, res2];
 
 function nextDay(day, n = 1) {
     const oneDay = 24 * 60 * 60 * 1000;
@@ -72,7 +51,7 @@ function prevWeek(week) {
 function getReservationsByDay(day) {
     const result = [];
     reservations.forEach((reservation) => {
-        if (reservation.date.getTime() === day.getTime())
+        if (reservation.date.getDate() === day.getDate())
             result.push(reservation);
     });
     return result;
@@ -102,11 +81,9 @@ function makeHeader(day) {
 function makeReservation(reservation) {
     const reservationDiv = document.createElement('div');
     reservationDiv.classList.add('reservation', 'rounded');
-    reservationDiv.innerHTML = `<h4 class="text-center rounded">${reservation.startTime} - ${reservation.endTime}</h4>
-                  
-                    <h5>Client: <span class="text-center">${reservation.client.name}</span></h5>
-                    <h5>Number: <span class="text-center">${reservation.client.phoneNumber}</span></h5>
-                    
+    reservationDiv.innerHTML = `<h4 class="text-center rounded">${reservation.startTime} - ${reservation.endTime}</h4>                  
+                    <h5 class="text-center">${reservation.client.name}</h5>   
+                    <h5>Number: <span class="">${reservation.client.phoneNumber}</span></h5>                   
                     <h5>Email:</h5>
                     <p class="text-center">${reservation.client.email}</p>`;
     return reservationDiv;
