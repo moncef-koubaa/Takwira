@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+app_first:
+    path: /first
+    controller: 'App\Controller\FirstController::index'
+
+app_sign_up:
+    path: /sign_up
+    controller: 'App\Controller\SignUpController::index'
+
