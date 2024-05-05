@@ -2,15 +2,72 @@
 
 namespace App\Controller;
 
+use App\Entity\Stadium;
+use App\Form\StadiumType;
+use App\Service\ImageUploader;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use function Symfony\Component\String\s;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class AddStadiumController extends AbstractController
 {
-    #[Route('/addStadium', name: 'app_add_stadium')]
-    public function index(): Response
+    private function validateTimeFormat(DateTime $time): bool
     {
+        return $time->format('H:00') === $time->format('H:i');
+    }
+
+    private function validateTime(DateTime $closingTime, DateTime $openingTime): bool
+    {
+        return $this->validateTimeFormat($closingTime) && $this->validateTimeFormat($openingTime) && $closingTime > $openingTime;
+    }
+
+    private function validateImages($images): bool
+    {
+        return count($images) < 5;
+    }
+
+    private function validateForm($form): bool
+    {
+        return $form->isSubmitted() && $form->isValid() &&
+            $this->validateTime($form->get('closingTime')->getData(), $form->get('openingTime')->getData()) &&
+            $this->validateImages($form->get('stadiumImages')->getData());
+    }
+
+    #[Route('/addStadium', name: 'app_add_stadium')]
+    public function index(Request $request): Response
+    {
+        dump($request);
         return $this->render('add_stadium/index.html.twig', []);
+    }
+
+    #[Route('/addStadiumTest/{id?0}', name: 'app_add_stadium_test')]
+    public function addStadiumTest(Request $request, ImageUploader $uploader, Stadium $stadium = null): Response
+    {
+        if (!$stadium) {
+            $stadium = new Stadium();
+        }
+        $form = $this->createForm(StadiumType::class, $stadium);
+        $form->remove('owner');
+        $form->remove('ownerId');
+        $form->handleRequest($request);
+        dump($form->get('stadiumImages')->getData());
+        if ($this->validateForm($form)) {
+            $images = $form->get('stadiumImages')->getData();
+            for ($i = 0; $i < count($images); $i++) {
+                $stadium->addImage($uploader->upload($images[$i], $i));
+            }
+            dd($stadium);
+        } else {
+            return $this->render('add_stadium/addStadiumTest.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
     }
 }

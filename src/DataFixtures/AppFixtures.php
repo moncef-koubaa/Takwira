@@ -8,18 +8,22 @@ use App\Entity\Reservation;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use DateTime;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     /**
      * @var User[]
      */
-    private $users = [];
+    private array $users = [];
 
     /**
      * @var Stadium[]
      */
-    private$stadiums = [];
+    private array $stadiums = [];
+
+    public function __construct(private UserPasswordHasherInterface $hasher) {}
+
 
     private function makeFakeStadium(): Stadium
     {
@@ -53,7 +57,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
             $user->setEmail($faker->email);
-            $user->setPassword($faker->password);
+            $user->setPassword($this->hasher->hashPassword($user, 'password'));
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
             $user->setPhoneNumber($faker->numberBetween(0, 99999999));

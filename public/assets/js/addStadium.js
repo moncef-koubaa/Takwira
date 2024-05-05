@@ -18,23 +18,27 @@ uploadLinks.forEach((link) => {
     })
 });
 
+function showImages(images) {
+    if (images.length > 0) {
+        uploadPlaceHolder.style.setProperty('display', 'none', 'important');
+        imgContainer.classList.add('img-ctn');
+        uploadLinks[1].style.display = 'block'
+        for (let i = images.length; i < 4; i++) {
+            imgPreviews[i].style.backgroundImage = '';
+        }
+        for (let i = 0; i < images.length; i++) {
+            imgPreviews[i].style.backgroundImage = `url(${URL.createObjectURL(images[i])})`;
+        }
+    }
+}
+
 uploadInput.addEventListener('change', (event) => {
     const newImages = uploadInput.files;
     if (newImages.length > 4) {
         warningUpload.style.display = 'block';
         return;
     }
-    if (newImages.length > 0) {
-        uploadPlaceHolder.style.setProperty('display', 'none', 'important');
-        imgContainer.classList.add('img-ctn');
-        uploadLinks[1].style.display = 'block'
-        for (let i = newImages.length; i < 4; i++) {
-            imgPreviews[i].style.backgroundImage = '';
-        }
-        for (let i = 0; i < newImages.length; i++) {
-            imgPreviews[i].style.backgroundImage = `url(${URL.createObjectURL(newImages[i])})`;
-        }
-    }
+    showImages(newImages);
 });
 
 // resizing left container

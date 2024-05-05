@@ -34,6 +34,7 @@ a {
     width: 40%;
     background-color: var(--akhdhar-fetah);
     color: white;
+    border-color: var(--akhdhar-fetah);
 }
 
 span {
@@ -68,4 +69,8 @@ span {
         grid-template-rows: 25% 25% 25% 25%;
         grid-template-columns: 100%;
     }
+}
+
+.upload {
+    display: none;
 }
