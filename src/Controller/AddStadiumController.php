@@ -6,6 +6,7 @@ use App\Entity\Stadium;
 use App\Form\StadiumType;
 use App\Service\ImageUploader;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +49,12 @@ class AddStadiumController extends AbstractController
     }
 
     #[Route('/addStadiumTest/{id?0}', name: 'app_add_stadium_test')]
-    public function addStadiumTest(Request $request, ImageUploader $uploader, Stadium $stadium = null): Response
+    public function addStadiumTest(
+        Request $request,
+        ImageUploader $uploader,
+        EntityManagerInterface $entityManager,
+        Stadium $stadium = null
+    ): Response
     {
         if (!$stadium) {
             $stadium = new Stadium();
@@ -57,17 +63,20 @@ class AddStadiumController extends AbstractController
         $form->remove('owner');
         $form->remove('ownerId');
         $form->handleRequest($request);
-        dump($form->get('stadiumImages')->getData());
+
         if ($this->validateForm($form)) {
             $images = $form->get('stadiumImages')->getData();
             for ($i = 0; $i < count($images); $i++) {
                 $stadium->addImage($uploader->upload($images[$i], $i));
             }
-            dd($stadium);
-        } else {
-            return $this->render('add_stadium/addStadiumTest.html.twig', [
-                'form' => $form->createView()
-            ]);
+            $stadium->setOwner($this->getUser());
+            $entityManager->persist($stadium);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_monitor_stadium', ['stadiumId' => $stadium->getId()]);
         }
+
+        return $this->render('add_stadium/addStadiumTest.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

@@ -14,6 +14,8 @@ class MonitorStadiumController extends AbstractController
     #[Route('/stadiumOwner/monitorStadium', name: 'app_monitor_stadium')]
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {
+        // TODO make hierarchy in access control in security.yaml
+        $this->denyAccessUnlessGranted('ROLE_OWNER');
         if (!$request->query->has('stadiumId')) {
             return new Response('No stadiumId provided', Response::HTTP_BAD_REQUEST);
         }

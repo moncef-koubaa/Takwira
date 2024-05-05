@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\Image;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -13,6 +14,7 @@ class ImageUploader
     public function __construct(
         private string $targetDirectory,
         private SluggerInterface $slugger,
+        private EntityManagerInterface $entityManager
     ) {
     }
 
@@ -31,6 +33,8 @@ class ImageUploader
         $newImage = new Image();
         $newImage->setNumber($number);
         $newImage->setPath($this->getTargetDirectory().DIRECTORY_SEPARATOR.$fileName);
+
+        $this->entityManager->persist($newImage);
 
         return $newImage;
     }
