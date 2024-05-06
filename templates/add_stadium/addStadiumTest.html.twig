@@ -42,6 +42,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="invalid-feedback d-block">
+                                {% for message in app.flashes('timeError') %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-floating mb-4">
@@ -96,23 +103,43 @@
                     </div>
 
                     <h4>Upload Images</h4>
-                    <div class="text-center no-img rounded mb-5 d-flex justify-content-center">
-                        <h6 class="align-self-center">No images yet! <span class="align-self-center">Upload</span> (MAX 4). </h6>
-                        <h6 class="align-self-center warning" style="color: red; display: none">
-                            You can't upload more than 4 images!
-                        </h6>
-                    </div>
+                    {% if stadiumImages|length > 0 %}
+                        <div class="text-center no-img rounded mb-5 d-flex justify-content-center" style="display: none !important;">
+                    {% else %}
+                        <div class="text-center no-img rounded mb-5 d-flex justify-content-center">
+                    {% endif %}
+                            <h6 class="align-self-center">No images yet! <span class="align-self-center">Upload</span> (MAX 4). </h6>
+                            <h6 class="align-self-center warning" style="color: red; display: none">
+                                You can't upload more than 4 images!
+                            </h6>
+                        </div>
 
-                    <div class="img-place" style="display: none">
-                        <div class="img-prv rounded"></div>
-                        <div class="img-prv rounded"></div>
-                        <div class="img-prv rounded"></div>
-                        <div class="img-prv rounded"></div>
-                    </div>
+                    {% if stadiumImages|length > 0 %}
+                        <div class="img-place img-ctn" style="display: none">
+                    {% else %}
+                        <div class="img-place" style="display: none">
+                    {% endif %}
+                        {% for image in stadiumImages %}
+                            <div class="img-prv rounded" style="background-image: url('{{ asset('/uploads/images/' ~ image.path) }}')"></div>
+                        {% endfor %}
+                        {% for i in ((stadiumImages|length)+1)..4 %}
+                            <div class="img-prv rounded"></div>
+                        {% endfor %}
+                        </div>
+
 
                     <div class="text-center mb-5">
-                        <span style="display: none">Upload other images</span>
+                        {% if stadiumImages|length > 0 %}
+                            <span>Upload other images</span>
+                        {% else %}
+                            <span style="display: none">Upload other images</span>
+                        {% endif %}
                         {{ form_errors(form.stadiumImages) }}
+                        <div class="invalid-feedback d-block">
+                            {% for message in app.flashes('imageError') %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
                     </div>
 
                     <div class="text-center">
@@ -124,6 +151,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 {{ form_end(form) }}

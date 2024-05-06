@@ -7,6 +7,7 @@ use App\Form\StadiumType;
 use App\Service\ImageUploader;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,12 +27,24 @@ class AddStadiumController extends AbstractController
 
     private function validateTime(DateTime $closingTime, DateTime $openingTime): bool
     {
-        return $this->validateTimeFormat($closingTime) && $this->validateTimeFormat($openingTime) && $closingTime > $openingTime;
+        if (!$this->validateTimeFormat($closingTime) || !$this->validateTimeFormat($openingTime)) {
+            $this->addFlash('timeError', 'Time format should be HH:00 !');
+            return false;
+        }
+        if ($closingTime < $openingTime) {
+            $this->addFlash('timeError', 'Closing time should be after opening time !');
+            return false;
+        }
+        return true;
     }
 
     private function validateImages($images): bool
     {
-        return count($images) < 5;
+        if (count($images) > 4) {
+            $this->addFlash('imageError', 'You can only upload MAX 4 images');
+            return false;
+        }
+        return true;
     }
 
     private function validateForm($form): bool
@@ -65,7 +78,7 @@ class AddStadiumController extends AbstractController
         $form->handleRequest($request);
 
         if ($this->validateForm($form)) {
-            $images = $form->get('stadiumImages')->getData();
+                $images = $form->get('stadiumImages')->getData();
             for ($i = 0; $i < count($images); $i++) {
                 $stadium->addImage($uploader->upload($images[$i], $i));
             }
@@ -76,7 +89,8 @@ class AddStadiumController extends AbstractController
         }
 
         return $this->render('add_stadium/addStadiumTest.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'stadiumImages' => $stadium->getImages()
         ]);
     }
 }
