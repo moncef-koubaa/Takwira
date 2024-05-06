@@ -32,7 +32,7 @@ class ImageUploader
 
         $newImage = new Image();
         $newImage->setNumber($number);
-        $newImage->setPath($this->getTargetDirectory().DIRECTORY_SEPARATOR.$fileName);
+        $newImage->setPath($fileName);
 
         $this->entityManager->persist($newImage);
 
