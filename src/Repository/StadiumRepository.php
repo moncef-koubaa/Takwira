@@ -44,10 +44,10 @@ class StadiumRepository extends ServiceEntityRepository
         }
 
         // Count total results
-        $countQb = clone $qb;
-        $totalResults = (int)$countQb->select('COUNT(s.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
+//        $countQb = clone $qb;
+//        $totalResults = (int)$countQb->select('COUNT(s.id)')
+//            ->getQuery()
+//            ->getSingleScalarResult();
 
         // Paginate results
         $paginator = new Paginator($qb);
@@ -55,7 +55,7 @@ class StadiumRepository extends ServiceEntityRepository
             ->getQuery()
             ->setFirstResult(($pageNumber - 1) * $pageSize)
             ->setMaxResults($pageSize);
-
+        $totalResults = count($paginator);
         return [
             'results' => $paginator->getIterator()->getArrayCopy(),
             'totalResults' => $totalResults,

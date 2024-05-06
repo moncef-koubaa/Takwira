@@ -34,7 +34,8 @@ class HomeController extends AbstractController
             'date' => $date,
             'name' => $name
         ]);
-
+//        var_dump($stadiums['totalResults']);
+//            die();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'stadiums' => $stadiums['results'],
