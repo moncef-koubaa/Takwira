@@ -1,0 +1,130 @@
+
+.card {
+    height: 100%;
+    background-color: #2b2d30;
+    color: white;
+}
+.card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card-text {
+    flex-grow: 1;
+}
+.container2{
+    /*margin:0% !important;*/
+    padding: 0; !important;
+    opacity: revert;
+    position:relative;
+}
+.btn1 {
+
+    /*font-size: large;!important;*/
+    font-size: calc(1.1vw );!important;
+    /*!* Set other styles *!*/
+    width: 100% !important;
+    /*font-size: larger;*/
+    position: absolute;
+
+    top: 0%;!important;
+    left: 65%;
+    width: 35% !important;
+    height: 100%;
+}
+.searchcol{
+    padding: 0 !important;
+
+}
+
+body{
+    /*background-image: url('assets/img/stadium.jpg') !important;*/
+    background-position: center bottom ;
+    background-repeat:no-repeat;
+    background-size: cover;
+    /*background-color: GREEN ;*/
+    margin-top: 7%!important;
+}
+
+.icon{
+    margin-top: 2% !important;
+    transition: transform 0.2s !important;
+}
+.icon:hover {
+    transform: scale(1.1); /* Increase the size of the rectangle on hover */
+    z-index: 1; /* Ensure that the hovered rectangle appears on top of others */
+}
+.localisation{
+    text-align: left;
+    padding: 0 !important;
+}
+.prix{
+    text-align: right;
+}
+.layer {
+    height: 40vh;
+    display: flex;
+    position: relative;
+    margin-top: 1%;
+    flex-wrap: wrap;
+    /*justify-content: space-around; !* Distribute flex items evenly *!*/
+}
+.form-control-borderless {
+    border: none;
+    background-color: #43454a;
+
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none ;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-select{
+
+    margin-top: 10px;
+    width: 97%;
+    border: none ;
+    outline: none;
+    box-shadow: none;
+}
+.filter-color{
+    background-color: #43454a;
+    color: white;
+}
+.topspacing{
+    margin-top: 35px;
+}
+.topspacing2{
+    margin-top: 15px;
+}
+.filter{
+    padding-left: 17px;
+}
+.form-range{
+    width: 60% ;
+    margin-left: 5%;
+    margin-right: 5%;
+    /*--track-color: green!important;*/
+    /* Define the color of the thumb (slider) */
+    /*--thumb-color: green!important;*/
+}
+
+
+.price-label{
+    width: 15%;
+    font-size: 1vw;
+}
+.center{
+    text-align: center!important; /* Horizontally center the text */
+    display: flex!important;
+    justify-content: center!important; /* Vertically center the text using flexbox */
+    align-items: center!important;
+}
+
+input[type='range']{ accent-color: green;}
+.slider{
+    background-color: #43454a!important;
+    width: 50%;
+}
