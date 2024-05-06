@@ -1,0 +1,9 @@
+{# custom_form_theme.html.twig #}
+
+{% block form_row %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_widget(form, {'attr': {'class': ''}}) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}
