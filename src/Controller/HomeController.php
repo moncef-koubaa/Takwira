@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use function Webmozart\Assert\Tests\StaticAnalysis\integer;
 
 
+
 class HomeController extends AbstractController
 {
     public function stadiumbystate(Request $request, ManagerRegistry $doctrine, $min, $max, $state, $date, $name, $pageNumber): Response
@@ -71,6 +72,7 @@ class HomeController extends AbstractController
             return $this->stadiumbystate($request,$doctrine,$priceMin,$priceMax,$state,$date,$name,$pageNumber);
         }
     }
+
 
 
 }

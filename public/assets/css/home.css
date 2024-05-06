@@ -1,3 +1,4 @@
+
 html, body {
     min-height: 100%;
     margin: 0;
@@ -76,7 +77,9 @@ body{
 .form-control-borderless {
     border: none;
     background-color: #43454a;
+
     color: white;!important;
+
 
 }
 
@@ -132,6 +135,7 @@ input[type='range']{ accent-color: green;}
 .slider{
     background-color: #43454a!important;
     width: 50%;
+
 }
 .form-control{
     background-color: #43454a!important;
@@ -139,4 +143,5 @@ input[type='range']{ accent-color: green;}
 .page-link{
     background-color: #43454a!important;
     color: white!important;
+
 }

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,26 +39,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 15)]
-    private ?string $phoneNumber = null;
-
-    /**
-     * @var Collection<int, Stadium>
-     */
-    #[ORM\OneToMany(targetEntity: Stadium::class, mappedBy: 'owner', orphanRemoval: true)]
-    private Collection $stadiums;
-
-    /**
-     * @var Collection<int, Reservation>
-     */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $reservations;
-
-    public function __construct()
-    {
-        $this->stadiums = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?int $phoneNumber = null;
 
     public function getId(): ?int
     {
@@ -161,74 +141,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getPhoneNumber(): ?int
     {
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(string $phoneNumber): static
+    public function setPhoneNumber(int $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Stadium>
-     */
-    public function getStadiums(): Collection
-    {
-        return $this->stadiums;
-    }
-
-    public function addStadium(Stadium $stadium): static
-    {
-        if (!$this->stadiums->contains($stadium)) {
-            $this->stadiums->add($stadium);
-            $stadium->setOwner($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStadium(Stadium $stadium): static
-    {
-        if ($this->stadiums->removeElement($stadium)) {
-            // set the owning side to null (unless already changed)
-            if ($stadium->getOwner() === $this) {
-                $stadium->setOwner(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): static
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): static
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getUser() === $this) {
-                $reservation->setUser(null);
-            }
-        }
 
         return $this;
     }

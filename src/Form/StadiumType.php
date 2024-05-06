@@ -27,6 +27,14 @@ class StadiumType extends AbstractType
 
         $builder
             ->add('name')
+
+            ->add('openingTime', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('closingTime', null, [
+                'widget' => 'single_text',
+            ])
+
             ->add('pricePerHour', IntegerType::class)
             ->add('city', ChoiceType::class, [
                 'choices' => Stadium::$citiesAndValues,
