@@ -19,12 +19,15 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
 
+
         if($this->getUser() && $this->getUser()->getUserIdentifier() !== null) {
             return $this->redirectToRoute('app_login');
+
         }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
         if($form->get('plainPassword')->getData() !== $form->get('confirmPassword')->getData()) {
             dump($this->getUser());
             $this->addFlash('error', 'Password and confirm password do not match');
@@ -39,6 +42,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
             if($form->get('IsOwner')->getData()) {
                 $user->setRoles(['ROLE_OWNER', 'ROLE_USER']);
             } else {

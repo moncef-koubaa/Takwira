@@ -1,7 +1,8 @@
 // Get the range input and the label
-var rangeInputmax = document.getElementById("customRange1");
+var rangeInputmax = document.getElementById("priceMax");
 var labelmax = document.getElementById('realprice1');
-var rangeInputmin = document.getElementById("customRange2");
+var rangeInputmin = document.getElementById("priceMin");
+
 var labelmin = document.getElementById('realprice2');
 
 // Function to update the label text

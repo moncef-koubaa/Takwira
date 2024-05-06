@@ -26,11 +26,14 @@ body{
 }
 .grid-container{
     display: grid;
+
     grid-template-rows:5% 60% 40%;
+
 }
 h2{
     color: rgb(77,168,88)!important;
 }
+
 .email , .email:focus, .email:hover{
     width: 50%!important;
     padding: 2%!important;
@@ -80,6 +83,7 @@ h2{
 
 .phone{
     margin-top: 3%;
+
     width: 50%;
     padding: 2%;
     background-color: rgb(16,30,30);
@@ -107,10 +111,12 @@ input[type=number]::-webkit-outer-spin-button {
     color: rgb(77,168,88)!important;
 }
 .custom-btn{
+
     margin-top: 2.5%;
     width: 50%;
     background-color: #2a8735!important;
     border-radius: 18px !important;
+
     color: white !important;
 }
 .sign{

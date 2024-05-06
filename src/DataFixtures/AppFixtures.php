@@ -40,8 +40,35 @@ class AppFixtures extends Fixture
         $stadium->setName($faker->name);
         $stadium->setOpeningTime($openTime);
         $stadium->setClosingTime($closeTime);
-        $stadium->setPricePerHour($faker->randomFloat(2, 0, 100));
-        $stadium->setCity($faker->city);
+        $stadium->setPricePerHour($faker->randomFloat(2, 50, 150));
+        $randomNumber = rand(0, 23);
+        $statesOfTunisia = [
+            "Ariana",
+            "Beja",
+            "Ben Arous",
+            "Bizerte",
+            "Gabes",
+            "Gafsa",
+            "Jendouba",
+            "Kairouan",
+            "Kasserine",
+            "Kebili",
+            "Le Kef",
+            "Mahdia",
+            "Manouba",
+            "Médenine",
+            "Monastir",
+            "Nabeul",
+            "Sfax",
+            "Sidi Bouzid",
+            "Siliana",
+            "Sousse",
+            "Tataouine",
+            "Tozeur",
+            "Tunis",
+            "Zaghouan"
+        ];
+        $stadium->setCity($statesOfTunisia[$randomNumber]);
         $stadium->setZipCode($faker->numberBetween(2000, 4000));
         $stadium->setAddress($faker->address);
         $stadium->setHasShower($faker->boolean);
@@ -54,7 +81,7 @@ class AppFixtures extends Fixture
     {
         $faker  = \Faker\Factory::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $user = new User();
             $user->setEmail($faker->email);
             $user->setPassword($this->hasher->hashPassword($user, 'password'));

@@ -1,4 +1,9 @@
 
+html, body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
 .card {
     height: 100%;
     background-color: #2b2d30;
@@ -73,6 +78,9 @@ body{
     border: none;
     background-color: #43454a;
 
+    color: white;!important;
+
+
 }
 
 .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
@@ -127,4 +135,13 @@ input[type='range']{ accent-color: green;}
 .slider{
     background-color: #43454a!important;
     width: 50%;
+
+}
+.form-control{
+    background-color: #43454a!important;
+    color: white!important;}
+.page-link{
+    background-color: #43454a!important;
+    color: white!important;
+
 }

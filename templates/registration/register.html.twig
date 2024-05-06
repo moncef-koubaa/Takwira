@@ -20,11 +20,14 @@
         <div class="text-center">
             <h2>Sign Up</h2>
             <div>
+
                 <h6 style="color: rgb(32,44,43); user-select: none">aaa</h6>
+
             </div>
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
+
         {{ form_widget(registrationForm.email ,{
             'attr': {
                 'placeholder': 'Enter your email',
@@ -40,12 +43,14 @@
                 'class': 'password',
                 'autocomplete': 'new-password',
                 'required' : 'required'
+
             }
 
         }) }}
             {{ form_widget(registrationForm.confirmPassword, {
                 'attr': {
                     'placeholder': 'confirm your password',
+
                     'class': 'password',
                     'autocomplete': 'new-password',
                     'required' : 'required'
@@ -56,6 +61,7 @@
         {{ form_widget(registrationForm.firstName, {
             'attr': {
                 'placeholder': 'Enter your first name',
+
                 'class': 'first-name',
                 'required' : 'required'
             }
@@ -63,6 +69,7 @@
         {{ form_widget(registrationForm.lastName, {
             'attr': {
                 'placeholder': 'Enter your last name',
+
                 'class': 'last-name',
                 'required' : 'required'
             }
@@ -85,6 +92,7 @@
             </div>
 
 {#{{        {{ form_row(registrationForm.email) }}}}#}
+
 {#        {{ form_row(registrationForm.plainPassword) }}#}
 {#        {{ form_row(registrationForm.firstName#}
 {#        }) }}#}
