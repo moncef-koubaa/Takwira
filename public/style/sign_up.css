@@ -1,0 +1,78 @@
+body{
+    margin: 0;
+    padding: 3%;
+    height: 100vh;
+    background-color:rgb(43,71,47) !important;
+    display: flex;
+}
+.left-section{
+    flex:40%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(32,44,43);
+}
+.right-section{
+    flex:60%;
+    display: flex;
+    background-image: url("staduim-background.jpg");
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+}
+.custom-row{
+    flex: 2;
+}
+.grid-container{
+    display: grid;
+    grid-template-rows: 15% 60% 20%;
+}
+h2{
+    color: rgb(77,168,88)!important;
+}
+.email{
+    width: 50%;
+    padding: 2%;
+    background-color: rgb(16,30,30);
+    border-radius: 10px;
+    border: none;
+    color: white;
+}
+.email:focus{
+}
+.email:hover{
+    color: white;
+    background-color: rgb(16,30,30);
+    border: none;
+}
+.password{
+    margin-top: 5%;
+    width: 50%;
+    padding: 2%;
+    background-color: rgb(16,30,30);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+.forgot{
+    display: block;
+    margin-top: 5%;
+    text-decoration: none;
+    color: rgb(77,168,88)!important;
+}
+.custom-btn{
+    width: 50%;
+    background-color: #2a8735!important;
+    border-radius: 18px !important;
+    margin-top: 5%;
+    color: white !important;
+}
+.sign{
+    margin-top: 5%;
+    color: white;
+}
+.link-sign{
+    text-decoration: none;
+    color: rgb(77,168,88)!important;
+}

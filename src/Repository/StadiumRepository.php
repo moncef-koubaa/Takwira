@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Stadium;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * @extends ServiceEntityRepository<Stadium>
@@ -20,6 +22,48 @@ class StadiumRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Stadium::class);
     }
+
+    public function print($min, $max, $state, $date, $name, $pageNumber, $pageSize=6)
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->leftJoin('s.reservations', 'r')
+            ->andWhere('s.pricePerHour >= :priceMin')
+            ->setParameter('priceMin', $min)
+            ->andWhere('s.pricePerHour <= :priceMax')
+            ->setParameter('priceMax', $max)
+            ->andWhere('r.date != :date')
+            ->setParameter('date', $date);
+
+        if ($state != null) {
+            $qb->andWhere('s.city = :state')
+                ->setParameter('state', $state);
+        }
+        if ($name !== null) {
+            $qb->andWhere('s.name LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
+        }
+
+        // Count total results
+        $countQb = clone $qb;
+        $totalResults = (int)$countQb->select('COUNT(s.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // Paginate results
+        $paginator = new Paginator($qb);
+        $paginator
+            ->getQuery()
+            ->setFirstResult(($pageNumber - 1) * $pageSize)
+            ->setMaxResults($pageSize);
+
+        return [
+            'results' => $paginator->getIterator()->getArrayCopy(),
+            'totalResults' => $totalResults,
+            'currentPage' => $pageNumber,
+            'pageSize' => $pageSize,
+        ];
+    }
+
 
     //    /**
     //     * @return Stadium[] Returns an array of Stadium objects

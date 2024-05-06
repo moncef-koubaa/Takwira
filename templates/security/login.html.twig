@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('style/login.css') }}">
+        <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}">
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+
+<body>
+    <div class="left-section">
+        <div class="grid-container">
+            <div>
+
+            </div>
+            <div class="text-center">
+                <h2>Greeting to</h2>
+                <h2>All footballers</h2>
+                <h6 style="color: white">please sign in to your account</h6>
+                <div>
+                    <h1 style="color: rgb(32,44,43); user-select: none">aaaa</h1>
+                </div>
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+                    <h6 style="color: rgb(77,168,88)">sign in with email</h6>
+                    <input type="email" name="email" id="email" class="email" placeholder="Enter your email" autocomplete="email" required autofocus>
+                    <input type="password" name="password" id="password" class="password" placeholder="Enter your password" required>
+                    <a href="#" class = "forgot">
+                        forgot password
+                    </a>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    <button type="submit" class="btn custom-btn">
+                        Sign In
+                    </button>
+                    <div class="sign">
+                        Dont have an Account? <a href={{ path('app_register') }} class="link-sign"> Sign Up</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="right-section">
+
+    </div>
+</body>
+
