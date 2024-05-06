@@ -21,6 +21,25 @@ class StadiumRepository extends ServiceEntityRepository
         parent::__construct($registry, Stadium::class);
     }
 
+    public function print($min,$max,$state,$date)
+    {
+        $query = $this->_em->createQuery(
+            'SELECT distinct s FROM Stadium s
+            inner join reservations r
+         on s.id = r.stadium_id
+             WHERE s.price>= :priceMin And s.age <= :priceMax and s.state = :state and r.date != :date
+             ORDER BY p.age
+             ASC'
+        )
+            ->setParameter('priceMin', $min)
+            ->setParameter('priceMax', $max)
+            ->setParameter('state', $state)
+            ->setParameter('date', $date)
+        ;
+        return $query->execute();
+
+    }
+
     //    /**
     //     * @return Stadium[] Returns an array of Stadium objects
     //     */
