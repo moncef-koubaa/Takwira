@@ -26,20 +26,23 @@ body{
 }
 .grid-container{
     display: grid;
-    grid-template-rows: 15% 60% 20%;
+    grid-template-rows:5% 60% 40%;
 }
 h2{
     color: rgb(77,168,88)!important;
 }
-.email{
-    width: 50%;
-    padding: 2%;
-    background-color: rgb(16,30,30);
-    border-radius: 10px;
-    border: none;
-    color: white;
+.email , .email:focus, .email:hover{
+    width: 50%!important;
+    padding: 2%!important;
+    background-color: rgb(16,30,30)!important;
+    border-radius: 10px!important;
+    border: none!important;
+    color: white!important;
 }
 .email:focus{
+    color: white;
+    background-color: rgb(16,30,30);
+    border: none;
 }
 .email:hover{
     color: white;
@@ -47,7 +50,7 @@ h2{
     border: none;
 }
 .password{
-    margin-top: 5%;
+    margin-top: 3%;
     width: 50%;
     padding: 2%;
     background-color: rgb(16,30,30);
@@ -55,6 +58,48 @@ h2{
     border-radius: 10px;
     color: white;
 }
+.first-name{
+    margin-top: 3%;
+    width: 50%;
+    padding: 2%;
+    background-color: rgb(16,30,30);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.last-name{
+    margin-top: 3%;
+    width: 50%;
+    padding: 2%;
+    background-color: rgb(16,30,30);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.phone{
+    margin-top: 3%;
+    width: 50%;
+    padding: 2%;
+    background-color: rgb(16,30,30);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+.form-check{
+    margin-top: 2%;
+    color: white;
+}
+
 .forgot{
     display: block;
     margin-top: 5%;
@@ -62,10 +107,10 @@ h2{
     color: rgb(77,168,88)!important;
 }
 .custom-btn{
+    margin-top: 2.5%;
     width: 50%;
     background-color: #2a8735!important;
     border-radius: 18px !important;
-    margin-top: 5%;
     color: white !important;
 }
 .sign{

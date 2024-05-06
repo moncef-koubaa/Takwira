@@ -20,61 +20,71 @@
         <div class="text-center">
             <h2>Sign Up</h2>
             <div>
-                <h1 style="color: rgb(32,44,43); user-select: none">aaa</h1>
+                <h6 style="color: rgb(32,44,43); user-select: none">aaa</h6>
             </div>
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-            <h6 style="color: rgb(77,168,88)">sign up with email</h6>
         {{ form_widget(registrationForm.email ,{
             'attr': {
                 'placeholder': 'Enter your email',
-                'class': 'email'
+                'class': 'email',
+                'required' : 'required',
+                'autocomplete': 'email'
+
             }
         }) }}
         {{ form_widget(registrationForm.plainPassword, {
             'attr': {
                 'placeholder': 'Enter your password',
-                'class': 'password'
+                'class': 'password',
+                'autocomplete': 'new-password',
+                'required' : 'required'
             }
 
         }) }}
             {{ form_widget(registrationForm.confirmPassword, {
                 'attr': {
                     'placeholder': 'confirm your password',
-                    'class': 'password'
+                    'class': 'password',
+                    'autocomplete': 'new-password',
+                    'required' : 'required'
+
                 }
 
             }) }}
         {{ form_widget(registrationForm.firstName, {
             'attr': {
                 'placeholder': 'Enter your first name',
-                'class': 'first-name'
+                'class': 'first-name',
+                'required' : 'required'
             }
         }) }}
         {{ form_widget(registrationForm.lastName, {
             'attr': {
                 'placeholder': 'Enter your last name',
-                'class': 'last-name'
+                'class': 'last-name',
+                'required' : 'required'
             }
         }) }}
-        {{ form_widget(registrationForm.IsOwner, {
-            'attr': {
-                'class': 'is-owner'
-            }
-        }) }}
-        {{ form_widget(registrationForm.phoneNumber, {
-            'attr': {
-                'placeholder': 'Enter your phone number',
-                'class': 'phone-number'
-            }
-        }) }}
-        {{ form_widget(registrationForm.agreeTerms, {
-            'attr': {
-                'class': 'agree-terms'
-            }
-        }) }}
-{#        {{ form_row(registrationForm.email) }}#}
+            {{ form_widget(registrationForm.phoneNumber, {
+                'attr': {
+                    'placeholder': 'Enter your phone number',
+                    'class': 'phone',
+                    'required' : 'required'
+                }
+            }) }}
+            <div class = "form-check">
+                {{ form_widget(registrationForm.IsOwner, {
+                    'attr': {
+                        'class': 'is-owner',
+                        'name': 'IsOwner'
+                    }
+                }) }}
+                <label for="IsOwner" class="form-check-label">Are you an owner?</label>
+            </div>
+
+{#{{        {{ form_row(registrationForm.email) }}}}#}
 {#        {{ form_row(registrationForm.plainPassword) }}#}
 {#        {{ form_row(registrationForm.firstName#}
 {#        }) }}#}
