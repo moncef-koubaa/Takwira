@@ -54,15 +54,8 @@ class AddStadiumController extends AbstractController
             $this->validateImages($form->get('stadiumImages')->getData());
     }
 
-    #[Route('/addStadium', name: 'app_add_stadium')]
-    public function index(Request $request): Response
-    {
-        dump($request);
-        return $this->render('add_stadium/index.html.twig', []);
-    }
-
-    #[Route('/addStadiumTest/{id?0}', name: 'app_add_stadium_test')]
-    public function addStadiumTest(
+    #[Route('/addStadium/{id?0}', name: 'app_add_stadium')]
+    public function addStadium(
         Request $request,
         ImageUploader $uploader,
         EntityManagerInterface $entityManager,
@@ -88,7 +81,7 @@ class AddStadiumController extends AbstractController
             return $this->redirectToRoute('app_monitor_stadium', ['stadiumId' => $stadium->getId()]);
         }
 
-        return $this->render('add_stadium/addStadiumTest.html.twig', [
+        return $this->render('add_stadium/addStadium.html.twig', [
             'form' => $form->createView(),
             'stadiumImages' => $stadium->getImages()
         ]);
