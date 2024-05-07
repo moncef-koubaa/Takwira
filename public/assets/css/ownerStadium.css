@@ -1,8 +1,24 @@
-body{
-    background-color: #202c2b;
-    padding: 20px;
-
+:root {
+    --akhdar-ghamak: #202c2b;
+    --akhdhar-fetah: #2a8735;
+    --akhdhar-azrak: #101e1e;
 }
+
+body {
+    background-color: var(--akhdhar-azrak) !important;
+    background-image: url("https://us.images.westend61.de/0001405679pw/close-up-of-soccer-field-EYF08953.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    padding: 20px;
+}
+
+
+/*body{*/
+/*    background-color: #202c2b;*/
+/*    padding: 20px;*/
+
+/*}*/
 h1{
     color:white ;
 }
