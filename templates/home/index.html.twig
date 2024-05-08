@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+
 </head>
 
 
@@ -17,9 +18,12 @@
         background-repeat:no-repeat;
         background-size: cover;
         /*background-color: GREEN ;*/
-        margin-top: 7%!important;}
+        margin-top: 0 !important;}
 </style>
+
 <body>
+{{  include('navbar.html.twig')}}
+
 <div class="container container1">
     <div class="row">
         <div class="col-md-9    ">
@@ -27,15 +31,20 @@
                 {% if stadiums|length == 0 %}
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                <div class="alert alert-danger" role="alert">
-                    No stadiums found for the selected criteria
-                </div></div>
+                        <div class="alert alert-danger" role="alert">
+                            No stadiums found for the selected criteria
+                        </div></div>
                 {% else %}
 
-                {% for stadium in stadiums %}
-                    <div class="col icon">
+                    {% for index in range((pageNumber-1)*6, min(stadiums|length,(pageNumber-1)*6 +6) - 1) %}
+                        {% set stadium = stadiums[index] %}                    <div class="col icon">
                         <div class="card ">
-                            <img src="assets/img/stadium.jpg" class="card-img-top" alt="...">
+                            {% if stadium.images|first == null %}
+                                <img src="{{ asset('/style/staduim-background.jpg')}} " class="card-img-top" alt="aaaa">
+                            {% else %}
+                                <img src="{{ asset('/uploads/images/' ~ ((stadium.images|first).path)) }}" class="card-img-top" alt="aaaa">
+                            {% endif %}
+
                             <div class="card-body">
                                 <h5 class="card-title">{{ stadium.name }}</h5>
                                 <div class="container">
@@ -55,9 +64,8 @@
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
                 {% endif %}
-                {#                {{ pagerfanta|pagerfanta(paginationView) }}#}
 
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -96,15 +104,23 @@
                             <div class="row">
                                 <div class="container container2">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col-1">
-                                            <!--                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">-->
-                                            <!--                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>-->
-                                            <!--                                            </svg>-->
-                                        </div>
-                                        <div class="col-7">
+                                        {#                                        <div class="col-1">#}
+                                        {#                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">-->#}
+                                        {#                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>-->#}
+                                        {#                                            </svg>#}
+                                        {#                                        </div>#}
+                                        <div class="col-8 input-group">
+    <span class="input-group-prepend">
+        <span class="input-group-text" style="background-color: #43454a; border:none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path fill="#ffffff" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+            </svg>
+        </span>
+    </span>
                                             <input class="form-control form-control-lg form-control-borderless filter-color" type="search" placeholder=" " id="name" name="name">
-
                                         </div>
+
+
 
                                         <button class="btn btn-lg btn1 btn-success btn1" type="submit" >Search</button>
 

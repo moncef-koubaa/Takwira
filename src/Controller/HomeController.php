@@ -4,6 +4,7 @@ namespace App\Controller;
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Stadium;
 use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -21,12 +22,11 @@ class HomeController extends AbstractController
     public function stadiumbystate(Request $request, ManagerRegistry $doctrine, $min, $max, $state, $date, $name, $pageNumber): Response
     {
         $repository = $doctrine->getRepository(Stadium::class);
+        $imageRepository = $doctrine->getRepository(Image::class);
         $stadiums = $repository->print($min, $max, $state, $date, $name, $pageNumber);
-
-        // Get the existing query parameters from the request
         $queryParams = $request->query->all();
+        $images=$imageRepository->findAll();
 
-        // Merge the existing query parameters with the filter parameters
         $queryParams = array_merge($queryParams, [
             'state' => $state,
             'priceMin' => $min,
@@ -34,13 +34,14 @@ class HomeController extends AbstractController
             'date' => $date,
             'name' => $name
         ]);
-//        var_dump($stadiums['totalResults']);
+//        var_dump(ceil($stadiums['totalResults'] / $stadiums['pageSize']),);
 //            die();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'stadiums' => $stadiums['results'],
+            'images' => $images,
             'pageNumber' => $stadiums['currentPage'],
-            'totalPages' => ceil($stadiums['totalResults'] / $stadiums['pageSize']),
+            'totalPages' => ceil($stadiums['totalResults'] / 6),
             'queryParams' => $queryParams
         ]);
     }
@@ -54,8 +55,6 @@ class HomeController extends AbstractController
         $priceMax = $request->request->get('priceMax');
         $priceMax =50+intval($priceMax);
         $date = $request->request->get('date');
-//        var_dump($priceMax, $state, $date);
-//        die();
         $name = $request->request->get('name');
 
         return $this->stadiumbystate($request,$doctrine,$priceMin,$priceMax,$state,$date,$name,$pageNumber);
@@ -64,7 +63,8 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(ManagerRegistry $doctrine,Request $request): Response
     {
-        {$pageNumber = $request->query->getInt('page', 1);
+        {
+            $pageNumber = $request->query->getInt('page', 1);
             $state = $request->query->get('state', null);
             $priceMin = $request->query->get('priceMin', 50);
             $priceMax = $request->query->get('priceMax', 150);
@@ -73,6 +73,12 @@ class HomeController extends AbstractController
             return $this->stadiumbystate($request,$doctrine,$priceMin,$priceMax,$state,$date,$name,$pageNumber);
         }
     }
+    #[Route('/test', name: 'test   ')]
+    public function test(ManagerRegistry $doctrine,Request $request): Response
+    {
+
+            return ($this->render('home/test.html.twig'));
+        }
 
 
 
