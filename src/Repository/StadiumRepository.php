@@ -21,8 +21,64 @@ class StadiumRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Stadium::class);
+
+    }
+    public function nbReservation($stadiumName)
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->select('s.openingTime, s.closingTime')
+            ->andWhere('s.name = :name')
+            ->setParameter('name', $stadiumName);
+
+        $result = $qb->getQuery()->getOneOrNullResult();
+
+        if (!$result) {
+            // Handle the case where no stadium is found with the given name
+            return 0;
+        }
+
+        $openingTime = $result['openingTime']->getTimestamp();
+        $closingTime = $result['closingTime']->getTimestamp();
+        $diffInSeconds = $closingTime - $openingTime;
+        $diffInHours = $diffInSeconds / 3600; // Convert seconds to hours
+        return $diffInHours;
     }
 
+
+
+
+
+    public function famaBlasa($stadiumName, $date): bool
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->select('r.startTime, r.endTime')
+            ->innerJoin('s.reservations', 'r')
+            ->andWhere('s.name = :name')->setParameter('name', $stadiumName)
+            ->andWhere('r.date = :date')->setParameter('date', $date);
+
+        $results = $qb->getQuery()->getResult();
+        //dump($results);
+
+        $totalSeconds = 0;
+        foreach ($results as $result) {
+            $startTime = $result['startTime']->getTimestamp();
+            $endTime = $result['endTime']->getTimestamp();
+            var_dump("start",$startTime,"end", $endTime);
+            $totalSeconds += ($endTime - $startTime);
+        }
+
+        $totalHours = $totalSeconds / 3600; // Convert seconds to hours
+        // die();
+        return $totalHours < $this->nbReservation($stadiumName);
+    }
+
+
+
+
+
+    /**
+     * @throws \Exception
+     */
     public function print($min, $max, $state, $date, $name, $pageNumber, $pageSize=6)
     {
         $qb = $this->createQueryBuilder('s')
@@ -30,9 +86,9 @@ class StadiumRepository extends ServiceEntityRepository
             ->andWhere('s.pricePerHour >= :priceMin')
             ->setParameter('priceMin', $min)
             ->andWhere('s.pricePerHour <= :priceMax')
-            ->setParameter('priceMax', $max)
-            ->andWhere('r.date != :date')
-            ->setParameter('date', $date);
+            ->setParameter('priceMax', $max);
+//            ->andWhere('r.date != :date or ')
+//            ->setParameter('date', $date);
 
         if ($state != null) {
             $qb->andWhere('s.city = :state')
@@ -48,17 +104,30 @@ class StadiumRepository extends ServiceEntityRepository
 //        $totalResults = (int)$countQb->select('COUNT(s.id)')
 //            ->getQuery()
 //            ->getSingleScalarResult();
-
         // Paginate results
+
+
+
         $paginator = new Paginator($qb);
-        $paginator
-            ->getQuery()
-            ->setFirstResult(($pageNumber - 1) * $pageSize)
-            ->setMaxResults($pageSize);
+//        $paginator
+//            ->getQuery()
+//            ->setFirstResult(($pageNumber - 1) * $pageSize)
+//            ->setMaxResults($pageSize);
         $totalResults = count($paginator);
+        $nb=0;
+        $stadiums=$paginator->getIterator()->getArrayCopy();
+        $filteredStadiums = [];
+
+
+        foreach ($stadiums as $stadium) {
+            if ($this->famaBlasa($stadium->getName(), $date)) {
+                $filteredStadiums[] = $stadium;
+                $nb=$nb+1;
+            }}
+
         return [
-            'results' => $paginator->getIterator()->getArrayCopy(),
-            'totalResults' => $totalResults,
+            'results' => $filteredStadiums,
+            'totalResults' => $nb,
             'currentPage' => $pageNumber,
             'pageSize' => $pageSize,
         ];

@@ -23,25 +23,27 @@
 <style>
 .navbar{
     background-color:#1a1e21;
-    font-family: Candara;
+     font-family: Candara;
     font-size:larger;
+    /*position: absolute!important;   */
+    /*top:0% !important;*/
 }
 
-.nav-link{
+.navbar .nav-link{
     color:#FFFFFF;
     transition: all .5s;
 
 }
-.nav-link:hover{
+.navbar .nav-link:hover{
     transform: scale(1.2);
     color:#3d9970;
 }
-.nav-link::after {
+.navbar .nav-link::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: -2%;
-    width: 0;
+      width: 0;
     height: 2%;
     background-color: transparent;
     transition: width 0.5s ease;
@@ -64,7 +66,7 @@
     width: 70%;
 }
 
-.btn{
+.navbar .btn{
     height:80% !important;
     margin-left:1%!important;
     color: #6f7071 ;
