@@ -110,8 +110,8 @@ class AppFixtures extends Fixture
 
                 $startTime = new DateTime();
                 $endTime = new DateTime();
-                $startHour = $faker->numberBetween(0, 22);
-                $endHour = $faker->numberBetween($startHour, 23);
+                $startHour = $faker->numberBetween(8, 22);
+                $endHour = $startHour+1;
                 $startTime->setTime($startHour, 0);
                 $endTime->setTime($endHour, 0);
 
