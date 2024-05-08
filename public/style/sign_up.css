@@ -35,7 +35,7 @@ h2{
 }
 
 .email , .email:focus, .email:hover{
-    width: 50%!important;
+    width: 100%!important;
     padding: 2%!important;
     background-color: rgb(16,30,30)!important;
     border-radius: 10px!important;

@@ -24,10 +24,13 @@
                 <h6 style="color: rgb(32,44,43); user-select: none">aaa</h6>
 
             </div>
-    {{ form_errors(registrationForm) }}
+
+
+
+            {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-
+            {% form_theme registrationForm '/form/custom_form_theme.html.twig' %}
         {{ form_widget(registrationForm.email ,{
             'attr': {
                 'placeholder': 'Enter your email',
