@@ -63,7 +63,12 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(ManagerRegistry $doctrine,Request $request): Response
     {
-        {
+        dump($this->getUser());
+        if ($this->isGranted('ROLE_OWNER')) {
+            // Redirect the user to the home route
+            return $this->redirectToRoute('app_owner_stadium_page');
+        }
+
             $pageNumber = $request->query->getInt('page', 1);
             $state = $request->query->get('state', null);
             $priceMin = $request->query->get('priceMin', 50);
@@ -71,12 +76,7 @@ class HomeController extends AbstractController
             $date = $request->query->get('date', "");
             $name = $request->query->get('name', "");
             return $this->stadiumbystate($request,$doctrine,$priceMin,$priceMax,$state,$date,$name,$pageNumber);
-        }
-    }
-    #[Route('/test', name: 'test   ')]
-    public function test(ManagerRegistry $doctrine,Request $request): Response
-    {
 
-            return ($this->render('home/test.html.twig'));
-        }
+    }
+
 }
