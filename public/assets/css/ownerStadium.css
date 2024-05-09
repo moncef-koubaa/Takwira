@@ -10,15 +10,9 @@ body {
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-    padding: 20px;
+    /*padding: 20px;*/
 }
 
-
-/*body{*/
-/*    background-color: #202c2b;*/
-/*    padding: 20px;*/
-
-/*}*/
 h1{
     color:white ;
 }

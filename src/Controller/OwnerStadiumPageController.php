@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class OwnerStadiumPageController extends AbstractController
 {
-    #[Route('/ownerStadiumPage', name: 'app_owner_stadium_page')]
+    #[Route('/stadiumOwner', name: 'app_owner_stadium_page')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
@@ -29,7 +29,7 @@ class OwnerStadiumPageController extends AbstractController
         ]);
     }
 
-    #[Route('/ownerStadiumPage/deleteStadium', name: 'delete_stadium', methods: ['POST'])]
+    #[Route('/stadiumOwner/deleteStadium', name: 'delete_stadium', methods: ['POST'])]
     public function deleteStadium(Request $request, ManagerRegistry $doctrine): JsonResponse
     {
         // Retrieve the stadium ID from the request body
