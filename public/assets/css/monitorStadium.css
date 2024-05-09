@@ -50,7 +50,7 @@ h4.today {
     color: var(--akhdhar-fetah);
 }
 
-.btn {
+.left, .right, .today {
     background-color: var(--akhdhar-fetah);
     border-style: none;
 }

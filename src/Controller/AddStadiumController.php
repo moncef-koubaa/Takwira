@@ -78,7 +78,7 @@ class AddStadiumController extends AbstractController
             $stadium->setOwner($this->getUser());
             $entityManager->persist($stadium);
             $entityManager->flush();
-            return $this->redirectToRoute('app_monitor_stadium', ['stadiumId' => $stadium->getId()]);
+            return $this->redirectToRoute('app_owner_stadium_page');
         }
 
         return $this->render('add_stadium/addStadium.html.twig', [
