@@ -38,7 +38,7 @@
                     <h6 style="color: rgb(77,168,88)">sign in with email</h6>
                     <input type="email" name="email" id="email" class="email" placeholder="Enter your email" autocomplete="email" required autofocus>
                     <input type="password" name="password" id="password" class="password" placeholder="Enter your password" required>
-                    <a href="#" class = "forgot">
+                    <a href="{{ path('app_forgot_password_request') }}" class = "forgot">
                         forgot password
                     </a>
                     <input type="hidden" name="_csrf_token"
