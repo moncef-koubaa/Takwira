@@ -17,7 +17,6 @@ class ReserveStadiumController extends AbstractController
         $stadiumId = $request->query->get('id');
         $repository = $doctrine->getRepository(Stadium::class);
         $stade=$repository->find($stadiumId);
-
         return $this->render('reserve_stadium/index.html.twig', [
             'controller_name' => 'ReserveStadiumController',
             'stadium' => $stade,

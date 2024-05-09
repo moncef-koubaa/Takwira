@@ -7,10 +7,76 @@ function getReservationsByDay(day) {
     return result;
 }
 
-function AfficherTableau(reservations){
+function convert_to_hours(reservations){
+    const reservation_hours=[];
     reservations.forEach((reservation) => {
-        let tableRowParent = document.querySelector('.table-row');
-    });
+        let parts=reservation.startTime.split(':');
+        let hour=parseInt(parts[0]);
+        reservation_hours.push(hour);
+    })
+    return reservation_hours;
+}
+function AfficherTableau(reservations){
+    let tableRowParent = document.querySelector('#table-row');
+    if(new Date(my_date).getDate()<new Date().getDate()){
+        document.querySelector('#selectMultipleTimes').innerHTML="<h3> Please choose a coming date </h3>";
+        tableRowParent.innerHTML="";
+    }else{
+
+        tableRowParent.innerHTML = "<thead>\n" +
+            "        <tr>\n" +
+            "            <th scope='col'></th>\n" +
+            "            <th scope='col'>Start Time</th>\n" +
+            "            <th scope='col'>End Time</th>\n" +
+            "            <th scope='col'>Status</th>\n" +
+            "        </tr>\n" +
+            "        </thead>"+
+            "<tbody >";
+
+    let reservation_hours=convert_to_hours(reservations);
+    let j,istr,jstr,test=false;
+    let openTimeParts=startTime.split(':');
+    let openHour=parseInt(openTimeParts[0]);
+    let closeTimeParts=endTime.split(':');
+    let closeHour=parseInt(closeTimeParts[0]);
+    for(let i = openHour; i < closeHour; i++){
+        j=i+1;
+        jstr=j.toString();
+        if (i===23) jstr='00';
+        istr=i.toString();
+        if(istr.length===1){
+            istr='0'+istr;
+        }
+        if(jstr.length===1){
+            jstr='0'+jstr;
+        }
+        console.log(stadiumId);
+        if(!reservation_hours.includes(i)){
+            let htmlString = `<tr class='av'>
+            <th scope='row' class='select'></th>
+            <td>${istr}:00</td>
+            <td>${jstr}:00</td>
+            <td>Available</td>
+            <td class='reserve'><a href='http://127.0.0.1:8000/payment?stadiumId=${stadiumId}&date=${my_date}&time=${istr}'>Reserve</a></td>
+        </tr>`;
+            tableRowParent.innerHTML += htmlString;
+
+            test=true;
+        }
+        else{
+            tableRowParent.innerHTML += "<tr class='res'>\n" +
+                "            <th scope='row' class='non-select'></th>\n" +
+                "            <td>"+istr+":00</td>\n" +
+                "            <td>"+jstr+":00</td>\n" +
+                "            <td>Reserved</td>\n" +
+                "            <td class='reserve'></td>\n" +
+                "        </tr>"
+
+        }
+
+    }
+    }
+
 }
 
 const daysTag = document.querySelector(".days"),
@@ -87,18 +153,23 @@ function fetch_date(){
                 dateField.textContent=my_date;
                 let reservationsByDay=getReservationsByDay(new Date(my_date));
                 reservationsByDay.forEach((reservationByDay)=>{
-                    console.log(reservationByDay.startTime+" to "+reservationByDay.endTime);
-                })
-                AfficherTableau(reservationsByDay);
+                });
                 setDateElement.innerHTML="<h1>"+my_date+"</h1>";
-                window.location.href = ("#find-time");
+            (document.querySelector("#selectMultipleTimes")).textContent='';
+            AfficherTableau(reservationsByDay);
+            window.location.href = ("#find-time");
             }
         );
     })
     getActiveDate.addEventListener("click",()=>{
         my_date= getActiveDate.textContent + ' ' + getMonth.textContent;
         dateField.textContent=my_date;
+        let reservationsByDay=getReservationsByDay(new Date(my_date));
+        reservationsByDay.forEach((reservationByDay)=>{
+        });
         setDateElement.innerHTML="<h1>"+my_date+"</h1>";
+        (document.querySelector("#selectMultipleTimes")).textContent='';
+        AfficherTableau(reservationsByDay);
         window.location.href = ("#find-time");
     });
 }
