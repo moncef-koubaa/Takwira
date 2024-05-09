@@ -35,3 +35,4 @@ updateLabel2();
 // Add event listener to the range input
 rangeInputmax.addEventListener("input", updateLabel1);
 rangeInputmin.addEventListener("input", updateLabel2);
+

@@ -20,7 +20,11 @@
         /*background-color: GREEN ;*/
         margin-top: 0 !important;}
 </style>
-
+<script>
+    function redirect_Stadium(id) {
+        window.location.href = "{{ url("app_reserve_stadium") }}"+"?id=" + id;
+    }
+</script>
 <body>
 {{  include('navbar.html.twig')}}
 
@@ -38,7 +42,7 @@
 
                     {% for index in range((pageNumber-1)*6, min(stadiums|length,(pageNumber-1)*6 +6) - 1) %}
                         {% set stadium = stadiums[index] %}                    <div class="col icon">
-                        <div class="card ">
+                        <div class="card " onclick="redirect_Stadium({{ stadium.id}})">
                             {% if stadium.images|first == null %}
                                 <img src="{{ asset('/style/staduim-background.jpg')}} " class="card-img-top" alt="aaaa">
                             {% else %}
